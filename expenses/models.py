@@ -13,6 +13,8 @@ class Category(models.Model):
 
 
 class Expense(models.Model):
+    
+
     class Meta:
         ordering = ('-date', '-pk')
 

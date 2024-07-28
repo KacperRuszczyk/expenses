@@ -6,9 +6,20 @@
 
 <form method="get" action="">
   {{form.as_p}}
+
   <button type="submit">search</button>
 </form>
 <br>
+
+<div>
+  <strong>Sort by:</strong>
+  <a href="?sort=date&direction=asc">Date Ascending</a> |
+  <a href="?sort=date&direction=desc">Date Descending</a> |
+  <a href="?sort=category&direction=asc">Category Ascending</a> |
+  <a href="?sort=category&direction=desc">Category Descending</a>
+</div>
+<br>
+
 <table border="1">
 	<caption>Expenses</caption>
 	<thead>
@@ -44,6 +55,7 @@
 </table>
 
 {% include "_pagination.html" %}
+
 <hr>
 <table border="1">
   <caption>Summary per category</caption>
@@ -56,4 +68,35 @@
 	{% endfor %}
   </tr>
 </table>
+
+<hr>
+<table border="1">
+  <caption>Summary per Year-Month</caption>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Total Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in summary_per_year_month %}
+      <tr>
+        <td>{{ entry.year }}</td>
+        <td>{{ entry.month }}</td>
+        <td>{{ entry.total_amount|floatformat:2 }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">No data available</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<div>
+  <strong>Total Amount Spent:</strong> {{ total_amount|floatformat:2 }}
+</div>
+
 {% endblock %}
